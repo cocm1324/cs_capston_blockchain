@@ -1,0 +1,35 @@
+namespace org.elss.participant
+
+import org.elss.common.*
+
+abstract participant ObjectPrimitive identified by key{
+  o String key
+}
+
+abstract participant ParticipantPrimitive extends ObjectPrimitive {
+  o String name
+  o Contact contact
+}
+
+participant AONetworkAdmin extends ParticipantPrimitive {
+}
+
+participant AOPersonnel extends ParticipantPrimitive {
+  o String department
+}
+
+participant EMNetworkAdmin extends ParticipantPrimitive {
+}
+
+participant EMPersonnel extends ParticipantPrimitive {
+}
+
+participant EMVoters extends ParticipantPrimitive {
+}
+
+participant TFNetworkAdmin extends ParticipantPrimitive {
+}
+
+participant TFPersonnel extends ParticipantPrimitive {
+  o School school
+}

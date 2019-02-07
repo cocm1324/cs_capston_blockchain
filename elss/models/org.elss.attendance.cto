@@ -1,0 +1,14 @@
+namespace org.elss.attendance
+
+import org.elss.electionledger.ElectionLedger
+
+asset Attendance identified by key {
+  o String key
+  o CheckList[] list
+  --> ElectionLedger electionledger
+}
+
+enum CheckList {
+  o ATTENDED
+  o NOT
+}

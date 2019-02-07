@@ -1,0 +1,17 @@
+namespace org.elss.votingbox
+
+asset VotingBox identified by key {
+  o String key
+  o BoxStatus status
+  o Candidate[] candidate
+}
+
+enum BoxStatus {
+  o POLLING
+  o NOT
+}
+
+concept Candidate {
+  o String name
+  o Integer ballotCount
+}

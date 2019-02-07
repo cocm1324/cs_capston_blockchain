@@ -1,0 +1,22 @@
+namespace org.elss.election
+
+import org.elss.common.*
+import org.elss.electionledger.ElectionLedger
+import org.elss.attendance.Attendance
+import org.elss.votingbox.VotingBox
+
+asset Election identified by key{
+  o String key
+  o String name
+  o DateTime expiry
+  o ElectionInfo info
+  --> ElectionLedger electionledger optional
+  --> VotingBox votingbox optional
+  --> Attendance attendance optional
+}
+
+concept ElectionInfo {
+  o School school
+  o Double quorumRate
+}
+

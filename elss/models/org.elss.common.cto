@@ -1,0 +1,11 @@
+namespace org.elss.common
+
+enum School {
+  o CSEE
+  o GEICT
+}
+
+concept Contact {
+  o String email
+  o String cell
+}

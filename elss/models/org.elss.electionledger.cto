@@ -1,0 +1,17 @@
+namespace org.elss.electionledger
+
+import org.elss.common.*
+
+asset ElectionLedger identified by key {
+  o String key
+  o School School
+  o DateTime expiry
+  o VoterInfo[] info
+}
+
+concept VoterInfo {
+  o String id
+  o String name
+  o School school
+  o Contact contact
+}
