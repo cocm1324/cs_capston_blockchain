@@ -1,11 +1,28 @@
 namespace org.elss.common
 
 enum School {
-  o CSEE
-  o GEICT
+  o CSE       //전전
+  o GEI       //아창
+  o CAS       //언정
+  o GLS       //글로벌리더십학부
+  o LAW       //법
+  o MCE       //기계
+  o LSC       //생명
+  o CCD       //콘디
+  o ISL       //국어
+  o SES       //공시
+  o CPS       //상사
+  o MAE       //경경
+  o CCE       //창의원
 }
 
 concept Contact {
-  o String email
-  o String cell
+  o String email  regex=/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+  o String cell   regex=/[0-9]{3}[-][0-9]{4}[-][0-9]{4}/
+}
+
+concept Schedule {
+  o DateTime Date
+  o School school
+  o String name
 }

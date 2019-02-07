@@ -3,7 +3,7 @@ namespace org.elss.electionledger
 import org.elss.common.*
 
 asset ElectionLedger identified by key {
-  o String key
+  o String key          //YYMMDD-School식으로 만듬 ex)190314-CSE
   o School School
   o DateTime expiry
   o VoterInfo[] info

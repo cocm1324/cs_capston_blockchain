@@ -1,9 +1,11 @@
 namespace org.elss.attendance
 
+import org.elss.common.*
 import org.elss.electionledger.ElectionLedger
 
 asset Attendance identified by key {
   o String key
+  o Schedule schedule
   o CheckList[] list
   --> ElectionLedger electionledger
 }

@@ -1,7 +1,10 @@
 namespace org.elss.votingbox
 
+import org.elss.common.*
+
 asset VotingBox identified by key {
   o String key
+  o Schedule schedule
   o BoxStatus status
   o Candidate[] candidate
 }
