@@ -11,5 +11,5 @@ asset VotingBox identified by key {
 }
 
 transaction createVotingBox {
-  o String 
+  o String key
 }

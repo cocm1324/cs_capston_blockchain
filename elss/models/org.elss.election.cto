@@ -6,11 +6,12 @@ import org.elss.attendance.Attendance
 import org.elss.votingbox.VotingBox
 
 asset Election identified by key {
-  o String key                //naming: [학부][YYMMDD][name]
+  o String key                    //naming: [학부][YYMMDD][name]
   o String name
   o String school
   o DateTime electionDate
   o ElectionInfo info
+  o String[] casted               //한번 투표를 한 studentinfo의 key를 저장
   o Status status default="PREP"
 }
 
