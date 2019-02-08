@@ -178,39 +178,3 @@ function AssignAll(assigndata){
 
    return school+'-'+month+'-'+dayNum;
 }
-
-
-
-/*asset Attendance identified by key {
-    o String key
-    o Schedule schedule
-    o CheckList[] list
-    --> ElectionLedger electionledger
-  }
-  
-  enum CheckList {
-    o ATTENDED
-    o NOT
-  }
-  
-  transaction CreateAttendance {
-    o String electionKey
-  }
-  
-  transaction Check {
-    o Integer index
-  }
-*/
-
-function createAttendance(attendanceData) {
-    
-    // Get the Asset Registry
-    return getAssetRegistry('org.elss.attendance.Attendance')
-    
-        .then(function(flightRegistry){
-            var factory = getFactory();
-            var NS = 'org.elss.attendance';
-
-            var key = 
-        });
-}
