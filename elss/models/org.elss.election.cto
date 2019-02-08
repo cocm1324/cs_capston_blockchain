@@ -18,3 +18,39 @@ concept ElectionInfo {
   o Double quorumRate
 }
 
+// Trasnaction and Event
+
+transaction createElection {
+  o DateTime expiry
+  o School school
+  o String name
+  o Double quorumRate
+}
+
+event electionCreated{
+  o String key
+}
+
+// transaction assignLedger{
+//   o String electionKey
+//   o String ledgerKey
+// }
+
+// event ledgerAssigned{
+//   o String electionKey
+//   o String ledgerKey
+// }
+
+transaction assignAll{
+  o String electionKey
+  o String ledgerKey
+  o String boxKey
+  o String attendanceKey
+}
+
+event AllAssigned{
+  o String electionKey
+  o String ledgerKey
+  o String boxKey
+  o String attendanceKey
+}
