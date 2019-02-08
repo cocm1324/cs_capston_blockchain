@@ -61,7 +61,7 @@ function createElection(ElectionData){
     })
 }
 function generateElectionKey(school){
-    var dt = new Date.now();
+    var dt = new Date();
 
     var month = dt.getMonth();
     var dayNum = dt.getDate();
@@ -99,8 +99,6 @@ function AssignAll(assigndata){
         var relationship_box = factory.newRelationship('org.elss.votingbox', 'VotingBox', assigndata.boxKey);
         election.votingbox = relationship_box;
 
-        var relationship_atd = factory.newRelationship('org.elss.attendance', 'Attendance', assigndata.attendanceKey);
-        election.attendance = relationship_atd;
        
         return electionRegistry.update(election);
     }).then(function(){
@@ -108,7 +106,6 @@ function AssignAll(assigndata){
         event.electionKey = assigndata.electionKey;
         event.ledgerKey = assigndata.ledgerKey;
         event.boxKey = assigndata.boxKey;
-        event.attendancekey = assigndata.attendanceKey;
         emit(event);
     }).catch(function(error){
         throw new Error(error);
@@ -160,10 +157,11 @@ function AssignAll(assigndata){
 
        ledger.school = ElectionLedgerData.school;
        ledger.expiry = ElectionLedgerData.expiry;
+       ledger.info = ElectionLedgerData.info;
 
        var event = factory.newEvent(namespace, 'ElectionLedgerCreated');
        event.key = ledgerKey;
-       emit(evnet);
+       emit(event);
 
        return electionLedgerRegistry.add(ledger);
 
@@ -171,7 +169,7 @@ function AssignAll(assigndata){
 }
 
  function generateLedgerKey(school){
-   var dt = new Date.now();
+   var dt = new Date();
 
    var month = dt.getMonth();
    var dayNum = dt.getDate();
