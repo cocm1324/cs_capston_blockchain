@@ -1,0 +1,17 @@
+namespace org.elss.electionledger
+
+import org.elss.common.*
+
+asset StudentInfo identified by studentId {
+  o String studentId       //학번을 키로 함
+  o String name
+  o School school
+  o Contact contact
+  o Attendance attendance
+  o Boolean isVoter
+}
+
+enum Attendance {
+  o ATTENDED
+  o NOT
+}

@@ -5,23 +5,28 @@ import org.elss.electionledger.ElectionLedger
 import org.elss.attendance.Attendance
 import org.elss.votingbox.VotingBox
 
-asset Election identified by key{
-  o String key
-  o Schedule schedule
+asset Election identified by key {
+  o String key                //naming: [학부][YYMMDD][name]
+  o String name
+  o String school
+  o DateTime electionDate
   o ElectionInfo info
-  --> ElectionLedger electionledger optional
-  --> VotingBox votingbox optional
-  --> Attendance attendance optional
+  o Status status default="PREP"
 }
 
 concept ElectionInfo {
-  o Double quorumRate
+  o Double quorumRate range=[0.0, 1.0]       //정족수의 비율
+}
+
+enum Status {
+  o PREP    //준비단계: 
+  o ATCK
+  o POLL
+  o END
 }
 
 // Trasnaction and Event
-
 transaction createElection {
-  o DateTime expiry
   o School school
   o String name
   o Double quorumRate
