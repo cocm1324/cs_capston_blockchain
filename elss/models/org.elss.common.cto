@@ -22,7 +22,7 @@ concept Contact {
 }
 
 concept Schedule {
-  o DateTime Date
+  o DateTime expiry
   o School school
   o String name
 }
