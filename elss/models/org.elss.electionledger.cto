@@ -14,7 +14,7 @@ concept VoterInfo {
   o String name
   o School school
   o Contact contact
-  o Attendance attendance
+  o Attendance attendance default="NOT"
 }
 
 enum Attendance {
@@ -27,8 +27,26 @@ enum Attendance {
 transaction createElectionLedger{
   o School school
   o DateTime expiry
+  o VoterInfo[] info optional
 }
 
 event ElectionLedgerCreated{
   o String key
 }
+
+//Info Sample
+
+// [
+//     {
+//       "$class": "org.elss.electionledger.VoterInfo",
+//       "id": "21300362",
+//       "name": "서상원",
+//       "school": "CSE",
+//       "contact": {
+//         "$class": "org.elss.common.Contact",
+//         "email": "21300362@handong.edu",
+//         "cell": "010-8944-0317"
+//       },
+//       "attendance": "NOT"
+//     }
+//   ]
