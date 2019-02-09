@@ -1,4 +1,4 @@
-namespace org.elss.electionledger
+namespace org.elss.studentinfo
 
 import org.elss.common.*
 
@@ -16,7 +16,7 @@ enum Attendance {
   o NOT
 }
 
-transaction CreateStudentInfo {
+transaction createStudentInfo {
   o String studentId
   o String name
   o String school
@@ -24,16 +24,16 @@ transaction CreateStudentInfo {
   o String cell
 }
 
-event StudentInfoCreated {
+event studentInfoCreated {
   o String studentId
 }
 
-transaction AttendanceCheck {
+transaction attendanceCheck {
   o String studentId
   o Attendance attendance
 }
 
-event AttendanceChanged {
+event attendanceChanged {
   o String studentId
   o Attendance attendance
 }

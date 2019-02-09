@@ -3,18 +3,27 @@ namespace org.elss.votingbox
 import org.elss.common.*
 import org.elss.election.Election
 
-asset VotingBox identified by key {
-  o String key                      //naming: [name][Election레지스트리의키값]
+asset VotingBox identified by boxId {
+  o String boxId                    //naming: [name][Election레지스트리의키값]
   o String name
   o Integer ballotCount default=0   //득표수
   --> Election election
 }
 
 transaction createVotingBox {
-  o String electionKey
+  o String electionId
+  o String name
+}
+
+event votingBoxCreated {
+  o String electionId
   o String name
 }
 
 transaction ballotCast {
-  o String key
+  o String boxId
+}
+
+event ballotCasted {
+  o String boxId
 }
