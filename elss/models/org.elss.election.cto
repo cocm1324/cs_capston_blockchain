@@ -34,4 +34,3 @@ transaction createElection {
 event electionCreated{
   o String key
 }
-

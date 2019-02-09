@@ -28,12 +28,22 @@ event studentInfoCreated {
   o String studentId
 }
 
-transaction attendanceCheck {
+transaction setAttendance {
   o String studentId
   o Attendance attendance
 }
 
-event attendanceChanged {
+event attendanceSet {
   o String studentId
   o Attendance attendance
+}
+
+transaction setIsVoter {
+  o String studentId
+  o Boolean isVoter
+}
+
+event isVoterset {
+  o String studentId
+  o Boolean isVoter
 }

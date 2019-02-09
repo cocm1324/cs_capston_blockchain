@@ -6,7 +6,7 @@ import org.elss.election.Election
 asset VotingBox identified by boxId {
   o String boxId                    //naming: [name][Election레지스트리의키값]
   o String name
-  o Integer ballotCount default=0   //득표수
+  o Integer ballotCount default = 0   //득표수
   --> Election election
 }
 

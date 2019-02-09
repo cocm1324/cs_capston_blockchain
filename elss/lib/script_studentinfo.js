@@ -37,10 +37,10 @@ function createStudentInfo(studentData) {
 /**
  * 
  * Change the value of Attendance in StudentInfo Transaction
- * @param {org.elss.studentinfo.attendanceCheck} attendanceData
+ * @param {org.elss.studentinfo.setAttendance} attendanceData
  * @transaction
  */
-function attendanceCheck(attendanceData){
+function setAttendance(attendanceData){
     var studentRegistry={}
     
     return getAssetRegistry('org.elss.studentinfo.StudentInfo').then(function(registry){
@@ -52,9 +52,36 @@ function attendanceCheck(attendanceData){
         return studentRegistry.update(student);
     }).then(function(){
         // Successful update
-        var event = getFactory().newEvent('org.elss.studentinfo', 'attendanceChanged');
+        var event = getFactory().newEvent('org.elss.studentinfo', 'attendanceSet');
         event.studentId = attendanceData.studentId;
         event.attendance = attendanceData.attendance;
+        emit(event);
+    }).catch(function(error){
+        throw new Error(error);
+    });
+}
+
+/**
+ * 
+ * Change the value of Attendance in StudentInfo Transaction
+ * @param {org.elss.studentinfo.setIsVoter} isVoterData
+ * @transaction
+ */
+function setIsVoter(isVoterData){
+    var studentRegistry={}
+    
+    return getAssetRegistry('org.elss.studentinfo.StudentInfo').then(function(registry){
+        studentRegistry = registry
+        return studentRegistry.get(isVoterData.studentId);
+    }).then(function(student){
+        if(!student) throw new Error("Student : "+isVoterData.studentId," Not Found!!!");
+        student.isVoter = isVoterData.isVoter;
+        return studentRegistry.update(student);
+    }).then(function(){
+        // Successful update
+        var event = getFactory().newEvent('org.elss.studentinfo', 'isVoterSet');
+        event.studentId = isVoterData.studentId;
+        event.isVoter = isVoterData.isVoter;
         emit(event);
     }).catch(function(error){
         throw new Error(error);
