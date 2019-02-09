@@ -7,11 +7,33 @@ asset StudentInfo identified by studentId {
   o String name
   o School school
   o Contact contact
-  o Attendance attendance
-  o Boolean isVoter
+  o Attendance attendance default="NOT"
+  o Boolean isVoter default=true
 }
 
 enum Attendance {
   o ATTENDED
   o NOT
+}
+
+transaction CreateStudentInfo {
+  o String studentId
+  o String name
+  o String school
+  o String email
+  o String cell
+}
+
+event StudentInfoCreated {
+  o String studentId
+}
+
+transaction AttendanceCheck {
+  o String studentId
+  o Attendance attendance
+}
+
+event AttendanceChanged {
+  o String studentId
+  o Attendance attendance
 }

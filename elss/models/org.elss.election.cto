@@ -1,9 +1,6 @@
 namespace org.elss.election
 
 import org.elss.common.*
-import org.elss.electionledger.ElectionLedger
-import org.elss.attendance.Attendance
-import org.elss.votingbox.VotingBox
 
 asset Election identified by key {
   o String key                //naming: [학부][YYMMDD][name]
