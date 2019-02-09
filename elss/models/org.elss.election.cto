@@ -1,15 +1,12 @@
 namespace org.elss.election
 
 import org.elss.common.*
-import org.elss.electionledger.ElectionLedger
-import org.elss.attendance.Attendance
-import org.elss.votingbox.VotingBox
 
 asset Election identified by key {
   o String key                    //naming: [학부][YYMMDD][name]
   o String name
   o String school
-  o DateTime electionDate
+  o DateTime electionDate         //선거 당일
   o ElectionInfo info
   o String[] casted               //한번 투표를 한 studentinfo의 key를 저장
   o Status status default="PREP"
@@ -30,6 +27,7 @@ enum Status {
 transaction createElection {
   o School school
   o String name
+  o DateTime electionDate
   o Double quorumRate
 }
 
@@ -37,26 +35,3 @@ event electionCreated{
   o String key
 }
 
-// transaction assignLedger{
-//   o String electionKey
-//   o String ledgerKey
-// }
-
-// event ledgerAssigned{
-//   o String electionKey
-//   o String ledgerKey
-// }
-
-transaction assignAll{
-  o String electionKey
-  o String ledgerKey
-  o String boxKey
-  o String attendanceKey
-}
-
-event AllAssigned{
-  o String electionKey
-  o String ledgerKey
-  o String boxKey
-  o String attendanceKey
-}
