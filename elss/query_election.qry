@@ -1,0 +1,25 @@
+/**
+ * All named queries in this file
+ **/
+
+ // Returns all elections
+ query AllElections {
+   description: "Returns all elections in the registry"
+   statement:  
+      SELECT  org.elss.election.Election
+ }
+
+ query ElectionByKey {
+   description: "Returns all elections in the registry"
+   statement:  
+      SELECT  org.elss.election.Election
+  	  WHERE   (key == _$elec_key)
+  } 
+
+   query ElectionByName {
+   description: "Returns all elections in the registry"
+   statement:  
+      SELECT  org.elss.election.Election
+  	  WHERE   (key == _$elec_name)
+  } 
+

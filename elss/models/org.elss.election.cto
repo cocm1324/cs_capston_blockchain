@@ -35,3 +35,12 @@ event electionCreated{
   o String key
 }
 
+transaction changeElecStatus{
+  o String key
+  o Status status 
+}
+
+event statusChanged{
+  o Status status
+}
+
