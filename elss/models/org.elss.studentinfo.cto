@@ -1,4 +1,4 @@
-namespace org.elss.electionledger
+namespace org.elss.studentinfo
 
 import org.elss.common.*
 
@@ -7,11 +7,33 @@ asset StudentInfo identified by studentId {
   o String name
   o School school
   o Contact contact
-  o Attendance attendance
-  o Boolean isVoter
+  o Attendance attendance default="NOT"
+  o Boolean isVoter default=true
 }
 
 enum Attendance {
   o ATTENDED
   o NOT
+}
+
+transaction createStudentInfo {
+  o String studentId
+  o String name
+  o String school
+  o String email
+  o String cell
+}
+
+event studentInfoCreated {
+  o String studentId
+}
+
+transaction attendanceCheck {
+  o String studentId
+  o Attendance attendance
+}
+
+event attendanceChanged {
+  o String studentId
+  o Attendance attendance
 }
