@@ -3,6 +3,3 @@
 Election Ledger Sharing System
 
 수정 test 1
-ß
-
-asdfghjkl
