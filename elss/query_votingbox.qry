@@ -1,0 +1,26 @@
+query AllVotingBox {
+   description: "Get all voting boxs in the registry"
+   statement:  
+      SELECT  org.elss.votingbox.VotingBox
+}
+
+query VotingBoxByBoxId {
+   description: "Search voting box with boxId"
+   statement:  
+      SELECT  org.elss.votingbox.VotingBox
+  	  WHERE   (boxId == _$boxId)
+}
+
+query VotingBoxByName {
+   description: "Search voting box with name"
+   statement:  
+      SELECT  org.elss.votingbox.VotingBox
+  	  WHERE   (name == _$name)
+}
+
+query VotingBoxByBoxId {
+   description: "Search voting box with boxId"
+   statement:  
+      SELECT  org.elss.votingbox.VotingBox
+  	  WHERE   (boxId == _$boxId)
+}

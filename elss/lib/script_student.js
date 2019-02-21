@@ -1,19 +1,19 @@
 /**
  * 
  * Create Student Information Transaction
- * @param {org.elss.studentinfo.createStudentInfo} studentData
+ * @param {org.elss.student.createStudent} studentData
  * @transaction
  */
 function createStudentInfo(studentData) {
 
-    return getAssetRegistry('org.elss.studentinfo.StudentInfo')    
+    return getAssetRegistry('org.elss.student.Student')    
         .then(function(studentRegistry){
             var factory = getFactory();
-            var studentInfoNS = 'org.elss.studentinfo';
+            var studentNS = 'org.elss.student';
             var commonNS = 'org.elss.common';
 
             var studentId = studentData.studentId;
-            var student = factory.newResource(studentInfoNS, 'StudentInfo', studentData.studentId);
+            var student = factory.newResource(studentNS, 'Student', studentData.studentId);
             student.name = studentData.name;
             student.school = studentData.school;
 
@@ -25,7 +25,7 @@ function createStudentInfo(studentData) {
             
 
             // 3 Emit the event FlightCreated
-            var event = factory.newEvent(studentInfoNS, 'studentInfoCreated');
+            var event = factory.newEvent(studentInfoNS, 'studentCreated');
             event.studentId = studentId;
             emit(event);
 
@@ -37,13 +37,13 @@ function createStudentInfo(studentData) {
 /**
  * 
  * Change the value of Attendance in StudentInfo Transaction
- * @param {org.elss.studentinfo.setAttendance} attendanceData
+ * @param {org.elss.student.setAttendance} attendanceData
  * @transaction
  */
 function setAttendance(attendanceData){
     var studentRegistry={}
     
-    return getAssetRegistry('org.elss.studentinfo.StudentInfo').then(function(registry){
+    return getAssetRegistry('org.elss.student.Student').then(function(registry){
         studentRegistry = registry
         return studentRegistry.get(attendanceData.studentId);
     }).then(function(student){
@@ -52,7 +52,7 @@ function setAttendance(attendanceData){
         return studentRegistry.update(student);
     }).then(function(){
         // Successful update
-        var event = getFactory().newEvent('org.elss.studentinfo', 'attendanceSet');
+        var event = getFactory().newEvent('org.elss.student', 'attendanceSet');
         event.studentId = attendanceData.studentId;
         event.attendance = attendanceData.attendance;
         emit(event);
@@ -64,13 +64,13 @@ function setAttendance(attendanceData){
 /**
  * 
  * Change the value of Attendance in StudentInfo Transaction
- * @param {org.elss.studentinfo.setIsVoter} isVoterData
+ * @param {org.elss.student.setIsVoter} isVoterData
  * @transaction
  */
 function setIsVoter(isVoterData){
     var studentRegistry={}
     
-    return getAssetRegistry('org.elss.studentinfo.StudentInfo').then(function(registry){
+    return getAssetRegistry('org.elss.student.Student').then(function(registry){
         studentRegistry = registry
         return studentRegistry.get(isVoterData.studentId);
     }).then(function(student){
@@ -79,7 +79,7 @@ function setIsVoter(isVoterData){
         return studentRegistry.update(student);
     }).then(function(){
         // Successful update
-        var event = getFactory().newEvent('org.elss.studentinfo', 'isVoterSet');
+        var event = getFactory().newEvent('org.elss.student', 'isVoterSet');
         event.studentId = isVoterData.studentId;
         event.isVoter = isVoterData.isVoter;
         emit(event);

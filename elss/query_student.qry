@@ -1,0 +1,33 @@
+query AllStudent {
+   description: "Get all students in the registry"
+   statement:  
+      SELECT  org.elss.student.Student
+}
+
+query StudentByStudentId {
+   description: "Search student with studentId"
+   statement:  
+      SELECT  org.elss.student.Student
+  	  WHERE   (studentId == _$studentId)
+} 
+
+query StudentByName {
+   description: "Search student with name"
+   statement:  
+      SELECT  org.elss.student.Student
+  	  WHERE   (name == _$name)
+}
+
+query StudentByAttendance {
+   description: "Search student with attenance"
+   statement:  
+      SELECT  org.elss.student.Student
+  	  WHERE   (attendance == _$attendance)
+}
+
+query StudentByIsValid {
+   description: "Search student with isValid"
+   statement:  
+      SELECT  org.elss.student.Student
+  	  WHERE   (isValid == _$isValid)
+}

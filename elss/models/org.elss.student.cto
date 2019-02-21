@@ -1,8 +1,8 @@
-namespace org.elss.studentinfo
+namespace org.elss.student
 
 import org.elss.common.*
 
-asset StudentInfo identified by studentId {
+asset Student identified by studentId {
   o String studentId       //학번을 키로 함
   o String name
   o School school
@@ -16,7 +16,7 @@ enum Attendance {
   o NOT
 }
 
-transaction createStudentInfo {
+transaction createStudent {
   o String studentId
   o String name
   o String school
@@ -24,7 +24,7 @@ transaction createStudentInfo {
   o String cell
 }
 
-event studentInfoCreated {
+event studentCreated {
   o String studentId
 }
 
