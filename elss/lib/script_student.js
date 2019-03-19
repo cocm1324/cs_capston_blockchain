@@ -25,7 +25,7 @@ function createStudentInfo(studentData) {
             
 
             // 3 Emit the event FlightCreated
-            var event = factory.newEvent(studentInfoNS, 'studentCreated');
+            var event = factory.newEvent(studentNS, 'studentCreated');
             event.studentId = studentId;
             emit(event);
 

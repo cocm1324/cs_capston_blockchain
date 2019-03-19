@@ -34,3 +34,20 @@ transaction createElection {
 event electionCreated{
   o String key
 }
+
+transaction changeElecStatus{
+  o String key
+  o Status status 
+}
+
+event statusChanged{
+  o Status status
+}
+
+transaction addCasted {
+  o String studentId
+}
+
+event castedAdded {
+  o String studentId
+}
