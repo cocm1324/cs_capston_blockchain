@@ -1,6 +1,7 @@
 namespace org.elss.student
 
-import org.elss.common.*
+import org.elss.common.Contact
+import org.elss.common.School
 
 asset Student identified by studentId {
   o String studentId       //학번을 키로 함
@@ -8,7 +9,6 @@ asset Student identified by studentId {
   o School school
   o Contact contact
   o Attendance attendance default="NOT"
-  o Boolean isVoter default=true
 }
 
 enum Attendance {
@@ -16,6 +16,7 @@ enum Attendance {
   o NOT
 }
 
+//transactions for AO
 transaction createStudent {
   o String studentId
   o String name
@@ -24,13 +25,39 @@ transaction createStudent {
   o String cell
 }
 
+transaction modifyStudent {
+  o String studentId
+  o String name
+  o School school
+  o String email
+  o String contact
+}
+
+transaction deleteStudent {
+  o String studentId
+}
+
+//transaction for TF
+transaction setAttendance {
+  o String studentId
+  o Attendance attendance
+}
+
+
+//events
 event studentCreated {
   o String studentId
 }
 
-transaction setAttendance {
+event studentModified {
   o String studentId
-  o Attendance attendance
+  o String name
+  o School school
+  o Contact contact
+}
+
+event studentDeleted {
+  o String studentId
 }
 
 event attendanceSet {
@@ -38,12 +65,3 @@ event attendanceSet {
   o Attendance attendance
 }
 
-transaction setIsVoter {
-  o String studentId
-  o Boolean isVoter
-}
-
-event isVoterset {
-  o String studentId
-  o Boolean isVoter
-}

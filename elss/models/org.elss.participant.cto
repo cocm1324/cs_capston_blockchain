@@ -24,7 +24,7 @@ participant EMNetworkAdmin extends ParticipantPrimitive {
 participant EMPersonnel extends ParticipantPrimitive {
 }
 
-participant EMVoters extends ParticipantPrimitive {
+participant Voters extends ParticipantPrimitive {
 }
 
 participant TFNetworkAdmin extends ParticipantPrimitive {
