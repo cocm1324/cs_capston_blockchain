@@ -2,16 +2,17 @@ namespace org.elss.election
 
 import org.elss.common.School
 import org.elss.votingbox.VotingBox
+import org.elss.student.Student
 
 asset Election identified by electionKey {
   o String electionKey                    //naming: [학부][YYMMDD][name]
-  o School name
-  o String school
+  o String name
+  o School school
   o DateTime electionDate         //선거 당일
   o Double quorumRate range=[0.0, 1.0]
-  o String[] casted               //한번 투표를 한 studentinfo의 key를 저장
   o Status status default="PREP"
-  o VotingBox[] boxes optional
+  --> VotingBox[] boxes optional
+  --> Student[] casted optional
 }
 
 enum Status {
@@ -36,17 +37,17 @@ transaction modifyElection {
 }
 
 transaction deleteElection {
-  o String key
+  o String electionkey
 }
 
 transaction changeElecStatus{
-  o String key
+  o String electionkey
   o Status status
 }
 
-
 //transactions for V
 transaction addCasted {
+  o String electionKey
   o String studentId
 }
 
@@ -71,5 +72,6 @@ event statusChanged{
 }
 
 event castedAdded {
+  o String electionKey
   o String studentId
 }

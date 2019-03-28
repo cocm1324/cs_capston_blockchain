@@ -1,0 +1,11 @@
+query AllVotingBox {
+    description: "Get all voting boxs in the registry"
+    statement:  
+        SELECT  org.elss.votingbox.VotingBox
+}
+
+query AllElection {
+    description: "Get all elections in the registry"
+    statement:
+        SELECT org.elss.election.Election
+}

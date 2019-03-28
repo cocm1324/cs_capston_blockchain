@@ -45,7 +45,7 @@ function ballotCast(ballotData) {
         boxRegistry = registry
         return boxRegistry.get(ballotData.boxId);
     }).then(function(box){
-        if(!box) throw new Error("Student : "+ballotData.boxId," Not Found!!!");
+        if(!box) throw new Error("VotingBox : "+ballotData.boxId," Not Found!!!");
         box.ballotCount = box.ballotCount + 1;
         return boxRegistry.update(box);
     }).then(function(){
