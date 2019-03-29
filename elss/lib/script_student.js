@@ -5,7 +5,6 @@
  * @transaction
  */
 function createStudentInfo(studentData) {
-
     return getAssetRegistry('org.elss.student.Student')    
         .then(function(studentRegistry){
             var factory = getFactory();
@@ -36,6 +35,87 @@ function createStudentInfo(studentData) {
 
 /**
  * 
+ * Create Student Information Transaction
+ * @param {org.elss.student.modifyStudent} studentData
+ * @transaction
+ */
+function modifyStudent(studentData){
+    var studentRegistry={};
+    var nameBuff = '';
+    var schoolBuff = null;
+    var emailBuff = '';
+    var cellBuff = '';
+    
+    return getAssetRegistry('org.elss.student.Student').then(function(registry){
+        studentRegistry = registry
+        return studentRegistry.get(studentData.studentId);
+    }).then(function(student){
+        if(!student) throw new Error("Student : "+attendanceData.studentId," Not Found!!!");
+        
+        //modify values
+        if(studentData.name){
+            student.name = studentData.name;
+            nameBuff = studentData.name;
+        } else {
+            nameBuff = student.name;
+        }
+
+        if(studentData.school){
+            student.school = studentData.school;
+            schoolBuff = studentData.school;
+        } else {
+            schoolBuff = student.school;
+        }
+        
+        if(studentData.email){
+            student.contact.email = studentData.email;
+            emailBuff = studentData.email;
+        } else {
+            emailBuff = student.email;
+        }
+        
+        if(studentData.cell){
+            student.contact.cell = studentData.cell;
+            cellBuff = studentData.cell;
+        } else {
+            cellBuff = student.cell;
+        }
+
+        return studentRegistry.update(student);
+    }).then(function(){
+        // Successful update
+        var event = getFactory().newEvent('org.elss.student', 'studentModified');
+        event.studentId = attendanceData.studentId;
+        emit(event);
+    }).catch(function(error){
+        throw new Error(error);
+    });
+}
+
+/**
+ * 
+ * Create Student Information Transaction
+ * @param {org.elss.student.deleteStudent} studentData
+ * @transaction
+ */
+function modifyStudent(studentData){
+    var studentRegistry={};
+    
+    return getAssetRegistry('org.elss.student.Student').then(function(registry){
+        studentRegistry = registry
+        return studentRegistry.remove(studentData.studentId);
+    }).then(function(){
+        // Successful update
+        var event = getFactory().newEvent('org.elss.student', 'studentDeleted');
+        event.studentId = attendanceData.studentId;
+        emit(event);
+    }).catch(function(error){
+        throw new Error(error);
+    });
+}
+
+/**
+ * 
  * Change the value of Attendance in StudentInfo Transaction
  * @param {org.elss.student.setAttendance} attendanceData
  * @transaction
@@ -61,29 +141,4 @@ function setAttendance(attendanceData){
     });
 }
 
-/**
- * 
- * Change the value of Attendance in StudentInfo Transaction
- * @param {org.elss.student.setIsVoter} isVoterData
- * @transaction
- */
-function setIsVoter(isVoterData){
-    var studentRegistry={}
-    
-    return getAssetRegistry('org.elss.student.Student').then(function(registry){
-        studentRegistry = registry
-        return studentRegistry.get(isVoterData.studentId);
-    }).then(function(student){
-        if(!student) throw new Error("Student : "+isVoterData.studentId," Not Found!!!");
-        student.isVoter = isVoterData.isVoter;
-        return studentRegistry.update(student);
-    }).then(function(){
-        // Successful update
-        var event = getFactory().newEvent('org.elss.student', 'isVoterSet');
-        event.studentId = isVoterData.studentId;
-        event.isVoter = isVoterData.isVoter;
-        emit(event);
-    }).catch(function(error){
-        throw new Error(error);
-    });
-}
+

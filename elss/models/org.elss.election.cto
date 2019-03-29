@@ -11,8 +11,8 @@ asset Election identified by electionKey {
   o DateTime electionDate         //선거 당일
   o Double quorumRate range=[0.0, 1.0]
   o Status status default="PREP"
+  o studentInfo[] casted optional
   --> VotingBox[] boxes optional
-  --> Student[] casted optional
 }
 
 enum Status {
@@ -20,6 +20,11 @@ enum Status {
   o ATCK
   o POLL
   o END
+}
+
+concept studentInfo {
+  o String studentId
+  o String name
 }
 
 // Trasnactions for EM
@@ -49,6 +54,7 @@ transaction changeElecStatus{
 transaction addCasted {
   o String electionKey
   o String studentId
+  o String name
 }
 
 
@@ -74,4 +80,5 @@ event statusChanged{
 event castedAdded {
   o String electionKey
   o String studentId
+  o String name
 }

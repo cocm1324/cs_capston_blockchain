@@ -30,7 +30,7 @@ transaction modifyStudent {
   o String name
   o School school
   o String email
-  o String contact
+  o String cell
 }
 
 transaction deleteStudent {
@@ -51,9 +51,6 @@ event studentCreated {
 
 event studentModified {
   o String studentId
-  o String name
-  o School school
-  o Contact contact
 }
 
 event studentDeleted {

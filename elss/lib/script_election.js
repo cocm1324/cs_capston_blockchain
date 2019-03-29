@@ -150,8 +150,12 @@ function addCasted(castedData) {
         if(!election) throw new Error("Election : "+ statusData.electionKey + " Not Found!!!");
         if(election.status!=POLL) throw new Error("Election : " + statusData.key + " in Not in Polling Stage!!!");
         
-        var relationship = factory.newRelationship('org.elss.student','Student',castedData.studentId);        
-        election.casted.unshift(relationship);
+        var studentInfo = factory.newConcept("org.elss.election", "studentInfo");
+
+        studentInfo.studentId = castedData.studentId;
+        studentInfo.name = castedData.name;
+                
+        election.casted.unshift(studentInfo);
 
         return statusRegistry.update(status);
     }).then(function(){
@@ -159,6 +163,7 @@ function addCasted(castedData) {
         var event = getFactory().newEvent('org.elss.election', 'statusChanged');
         event.electionKey = castedData.electionKey;
         event.studentId = castedData.studentId;
+        event.name = castedData.name;
         emit(event);
     }).catch(function(error){
         throw new Error(error);

@@ -10,7 +10,6 @@ function createVotingBox(boxData) {
         .then(function(boxRegistry){
             var factory = getFactory();
             var votingBoxNS = 'org.elss.votingbox';
-            var commonNS = 'org.elss.common';
 
             var boxId = generateBoxId(boxData.electionId, boxData.name)
             var box = factory.newResource(votingBoxNS, 'VotingBox', boxId);
@@ -30,6 +29,28 @@ function createVotingBox(boxData) {
 
 function generateBoxId(electionId, name) {
     return '' + electionId + ': ' + name
+}
+
+/**
+ * 
+ * Casting a vote Transaction
+ * @param {org.elss.votingbox.deleteVotingBox} boxData
+ * @transaction
+ */
+function deleteVotingBox(boxData) {
+    var boxRegistry={}
+    
+    return getAssetRegistry('org.elss.votingbox.VotingBox').then(function(registry){
+        boxRegistry = registry
+        return boxRegistry.remove(ballotData.boxId);
+    }).then(function(){
+        // Successful update
+        var event = getFactory().newEvent('org.elss.votingbox', 'votingBoxDeleted');
+        event.boxId = ballotData.boxId;
+        emit(event);
+    }).catch(function(error){
+        throw new Error(error);
+    });
 }
 
 /**
