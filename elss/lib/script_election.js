@@ -142,6 +142,7 @@ function addCasted(castedData) {
         if(!student) throw new Error("학번이 " + castedData.studentId + "인 학생은 리스트에 존재하지 않습니다.");
         if(student.attendance == 'NOT') throw new Error("학번이 "+ castedData.studentId + "인 학생은 출석으로 처리되지 않았습니다.");
         if(electionBuff.school != student.school) throw new Error("학번이 "+ castedData.studentId + "인 학생은 " + electionBuff.school + "학부의 정회원이 아닙니다.");
+        if(electionBuff.casted.includes(student.studentId)) throw new Error("학번이 "+ castedData.studentId + "인 학생은 이미 투표하였습니다.");
 
         electionBuff.casted.unshift(castedData.studentId);
 
