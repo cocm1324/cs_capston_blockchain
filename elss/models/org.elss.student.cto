@@ -7,7 +7,7 @@ asset Student identified by studentId {
   o String studentId       //학번을 키로 함
   o String name
   o School school
-  o Contact contact
+  o Contact contact optional
   o Attendance attendance default="NOT"
 }
 

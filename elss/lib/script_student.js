@@ -4,33 +4,27 @@
  * @param {org.elss.student.createStudent} studentData
  * @transaction
  */
-function createStudentInfo(studentData) {
-    return getAssetRegistry('org.elss.student.Student')    
-        .then(function(studentRegistry){
-            var factory = getFactory();
-            var studentNS = 'org.elss.student';
-            var commonNS = 'org.elss.common';
+function createStudent(studentData) {
+    
+    return getAssetRegistry('org.elss.student.Student').then(function(studentRegistry){
+        var factory = getFactory();
 
-            var studentId = studentData.studentId;
-            var student = factory.newResource(studentNS, 'Student', studentData.studentId);
-            student.name = studentData.name;
-            student.school = studentData.school;
+        var student = factory.newResource('org.elss.student', 'Student', studentData.studentId);
+        student.name = studentData.name;
+        student.school = studentData.school;
 
-            var contact = factory.newConcept(commonNS, "Contact");
+        var contact = factory.newConcept('org.elss.common', "Contact");
 
-            contact.email = studentData.email;
-            contact.cell = studentData.cell;
-            student.contact = contact;
-            
-
-            // 3 Emit the event FlightCreated
-            var event = factory.newEvent(studentNS, 'studentCreated');
-            event.studentId = studentId;
-            emit(event);
-
-            // 4. Add to registry
-            return studentRegistry.add(student);
-        });
+        contact.email = studentData.email;
+        contact.cell = studentData.cell;
+        student.contact = contact;
+        
+        return studentRegistry.add(student);
+    }).then(function(){
+        var event = getFactory().newEvent('org.elss.student', 'studentCreated');
+        event.studentId = studentData.studentId;
+        emit(event);
+    });
 }
 
 /**
@@ -41,51 +35,24 @@ function createStudentInfo(studentData) {
  */
 function modifyStudent(studentData){
     var studentRegistry={};
-    var nameBuff = '';
-    var schoolBuff = null;
-    var emailBuff = '';
-    var cellBuff = '';
-    
+
     return getAssetRegistry('org.elss.student.Student').then(function(registry){
         studentRegistry = registry
         return studentRegistry.get(studentData.studentId);
     }).then(function(student){
-        if(!student) throw new Error("Student : "+attendanceData.studentId," Not Found!!!");
-        
-        //modify values
-        if(studentData.name){
-            student.name = studentData.name;
-            nameBuff = studentData.name;
-        } else {
-            nameBuff = student.name;
-        }
+        if(!student) throw new Error("학번이 " + studentData.studentId + "인 학생은 리스트에 존재하지 않습니다.");
+        if(!studentData.name) throw new Error("이름은 필수 항목입니다.");
+        if(!studentData.school) throw new Error("학부는 필수 항목입니다.");
 
-        if(studentData.school){
-            student.school = studentData.school;
-            schoolBuff = studentData.school;
-        } else {
-            schoolBuff = student.school;
-        }
-        
-        if(studentData.email){
-            student.contact.email = studentData.email;
-            emailBuff = studentData.email;
-        } else {
-            emailBuff = student.email;
-        }
-        
-        if(studentData.cell){
-            student.contact.cell = studentData.cell;
-            cellBuff = studentData.cell;
-        } else {
-            cellBuff = student.cell;
-        }
+        student.name = studentData.name;
+        student.school = studentData.school;
+        student.contact.email = studentData.email;
+        student.contact.cell = studentData.cell;
 
         return studentRegistry.update(student);
     }).then(function(){
-        // Successful update
         var event = getFactory().newEvent('org.elss.student', 'studentModified');
-        event.studentId = attendanceData.studentId;
+        event.studentId = studentData.studentId;
         emit(event);
     }).catch(function(error){
         throw new Error(error);
@@ -98,16 +65,19 @@ function modifyStudent(studentData){
  * @param {org.elss.student.deleteStudent} studentData
  * @transaction
  */
-function modifyStudent(studentData){
+function deleteStudent(studentData){
     var studentRegistry={};
     
     return getAssetRegistry('org.elss.student.Student').then(function(registry){
         studentRegistry = registry
-        return studentRegistry.remove(studentData.studentId);
+        return studentRegistry.get(studentData.studentId);
+    }).then(function(student){
+        if(!student) throw new Error("학번이 " + studentData.studentId + "인 학생은 리스트에 존재하지 않습니다.");
+
+        return studentRegistry.remove(student);
     }).then(function(){
-        // Successful update
         var event = getFactory().newEvent('org.elss.student', 'studentDeleted');
-        event.studentId = attendanceData.studentId;
+        event.studentId = studentData.studentId;
         emit(event);
     }).catch(function(error){
         throw new Error(error);
@@ -127,11 +97,10 @@ function setAttendance(attendanceData){
         studentRegistry = registry
         return studentRegistry.get(attendanceData.studentId);
     }).then(function(student){
-        if(!student) throw new Error("Student : "+attendanceData.studentId," Not Found!!!");
+        if(!student) throw new Error("학번이 " + attendanceData.studentId + "인 학생은 리스트에 존재하지 않습니다.");
         student.attendance = attendanceData.attendance;
         return studentRegistry.update(student);
     }).then(function(){
-        // Successful update
         var event = getFactory().newEvent('org.elss.student', 'attendanceSet');
         event.studentId = attendanceData.studentId;
         event.attendance = attendanceData.attendance;

@@ -1,6 +1,7 @@
 namespace org.elss.participant
 
-import org.elss.common.*
+import org.elss.common.Contact
+import org.elss.common.School
 
 abstract participant ObjectPrimitive identified by key{
   o String key

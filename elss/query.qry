@@ -9,3 +9,11 @@ query AllElection {
     statement:
         SELECT org.elss.election.Election
 }
+
+query StudentBySchool {
+    description: "Get all student according to School"
+    statement:
+        SELECT org.elss.student.Student
+        WHERE (school == _$school)
+        ORDER BY [studentId ASC]
+}

@@ -3,7 +3,7 @@
     "composer": "^0.20.4"
   },
   "name": "elss",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Election Ledger Sharing System",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/elss.bna",

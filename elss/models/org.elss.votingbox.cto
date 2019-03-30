@@ -12,7 +12,7 @@ asset VotingBox identified by boxId {
 
 //transactions for EM
 transaction createVotingBox {
-  o String electionId
+  o String electionKey
   o String name
 }
 
@@ -27,9 +27,11 @@ transaction ballotCast {
 
 
 //events
+
+//이 이벤트가 호출되면 Election객체에서 addVotingBox tx가 실행되어야 함
 event votingBoxCreated {
-  o String electionId
-  o String name
+  o String electionKey
+  o String boxId
 }
 
 event votingBoxDeleted {
