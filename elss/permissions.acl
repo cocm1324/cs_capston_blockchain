@@ -1,0 +1,373 @@
+/*
+    Permissions for Network Admin
+        participant -> org.hyperledger.composer.system.NetworkAdmin
+        - 시스템 접근
+        - participant CRUD
+*/
+rule Sysnet_admin_NetworkControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule Sysnet_admin_ParticipantRegistryControlPermission {
+    description: "hey"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.elss.participant.*"
+    action: ALLOW
+}
+
+
+
+/*
+    Permissions for elssnet admin
+        participant: org.elss.participant.ElssNetworkAdmin
+        - 시스템 접근
+        - participant CRUD
+        - 히스토리안 레코드 C
+        - 각 리소스(election, student, votingbox) CRUD 및 트랜잭션
+
+*/
+rule Elssnet_admin_NetworkControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.ElssNetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule Elssnet_admin_ParticipantRegistryControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.ElssNetworkAdmin"
+    operation: ALL
+    resource: "org.elss.participant.*"
+    action: ALLOW
+}
+
+rule Elssnet_admin_HistorianrecordPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.ElssNetworkAdmin"
+    operation: CREATE
+    resource: "org.hyperledger.composer.system.HistorianRecord"
+    action: ALLOW
+}
+
+rule Elssnet_admin_ElectionRegistryControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.ElssNetworkAdmin"
+    operation: ALL
+    resource: "org.elss.election.*"
+    action: ALLOW
+}
+
+rule Elssnet_admin_StudentRegistryControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.ElssNetworkAdmin"
+    operation: ALL
+    resource: "org.elss.student.*"
+    action: ALLOW
+}
+
+rule Elssnet_admin_VotingboxRegistryControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.ElssNetworkAdmin"
+    operation: ALL
+    resource: "org.elss.votingbox.*"
+    action: ALLOW
+}
+
+
+
+/*
+    Permissions for EmIdentity
+        participant: org.elss.participant.EmIdentity
+        - 시스템 접근
+        - 히스토리안 레코드 C
+        - 트랜잭션: changeElectionStatus, createElection, createVotingBox, deleteElection, deleteVotingBox
+        - READ: election, student, votingbox
+*/
+rule Em_identity_NetworkControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule Em_identity_HistorianrecordPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: CREATE
+    resource: "org.hyperledger.composer.system.HistorianRecord"
+    action: ALLOW
+}
+
+rule Em_identity_CreateElectionPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: CREATE
+    resource: "org.elss.election.*"
+    transaction: "org.elss.election.createElection"
+    action: ALLOW
+}
+
+rule Em_identity_CreateVotingBoxPermission1 {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: CREATE
+    resource: "org.elss.votingbox.*"
+    transaction: "org.elss.votingbox.createVotingBox"
+    action: ALLOW
+}
+
+rule Em_identity_CreateVotingBoxPermission2 {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: UPDATE
+    resource: "org.elss.election.*"
+    transaction: "org.elss.votingbox.createVotingBox"
+    action: ALLOW
+}
+
+rule Em_identity_ChangeElectionStatusPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: CREATE, UPDATE
+    resource: "org.elss.election.*"
+    transaction: "org.elss.election.changeElectionStatus"
+    action: ALLOW
+}
+
+rule Em_identity_DeleteElectionPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: CREATE, DELETE
+    resource: "org.elss.election.*"
+    transaction: "org.elss.election.deleteElection"
+    action: ALLOW
+}
+
+rule Em_identity_DeleteVotingBoxPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: CREATE, DELETE
+    resource: "org.elss.votingbox.*"
+    transaction: "org.elss.votingbox.deleteVotingBox"
+    action: ALLOW
+}
+
+rule Em_identity_ElectionRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: READ
+    resource: "org.elss.election.*"
+    action: ALLOW
+}
+
+rule Em_identity_StudentRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: READ
+    resource: "org.elss.student.*"
+    action: ALLOW
+}
+
+rule Em_identity_VotingBoxRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.EmIdentity"
+    operation: READ
+    resource: "org.elss.votingbox.*"
+    action: ALLOW
+}
+
+
+
+/*
+    Permissions for TfIdentity
+        participant: org.elss.participant.TfIdentity
+        - 시스템 접근
+        - 히스토리안 레코드
+        - setAttendance
+        - READ: election, student
+*/
+rule Tf_identity_NetworkControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.TfIdentity"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule Tf_identity_HistorianrecordPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.TfIdentity"
+    operation: CREATE
+    resource: "org.hyperledger.composer.system.HistorianRecord"
+    action: ALLOW
+}
+
+rule Tf_identity_setAttendancePermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.TfIdentity"
+    operation: UPDATE
+    resource: "org.elss.student.*"
+    transaction: "org.elss.student.setAttendance"
+    action: ALLOW
+}
+
+rule Tf_identity_ElectionRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.TfIdentity"
+    operation: READ
+    resource: "org.elss.election.*"
+    action: ALLOW
+}
+
+rule Tf_identity_StudentRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.TfIdentity"
+    operation: READ
+    resource: "org.elss.student.*"
+    action: ALLOW
+}
+
+
+
+/*
+    Permissions for AoIdentity
+        participant: org.elss.participant.AoIdentity
+        - 시스템 접근
+        - 히스토리안 레코드
+        - 트랜잭션: createStudent, modifyStudent, deleteStudent
+        - READ: election, student
+*/
+rule Ao_identity_NetworkControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule Ao_identity_HistorianrecordPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: CREATE
+    resource: "org.hyperledger.composer.system.HistorianRecord"
+    action: ALLOW
+}
+
+rule Ao_identity_CreateStudentPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: CREATE
+    resource: "org.elss.student.*"
+    transaction: "org.elss.student.createStudent"
+    action: ALLOW
+}
+
+rule Ao_identity_ModifyStudentPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: UPDATE
+    resource: "org.elss.student.*"
+    transaction: "org.elss.student.modifyStudent"
+    action: ALLOW
+}
+
+rule Ao_identity_DeleteStudentPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: DELETE
+    resource: "org.elss.student.*"
+    transaction: "org.elss.student.deleteStudent"
+    action: ALLOW
+}
+
+rule Ao_identity_ElectionRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: READ
+    resource: "org.elss.election.*"
+    action: ALLOW
+}
+
+rule Ao_identity_StudentRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.AoIdentity"
+    operation: READ
+    resource: "org.elss.student.*"
+    action: ALLOW
+}
+
+
+
+/*
+    Permissions for VotingIdentity
+        participant: org.elss.participant.VotingIdentity
+        - 시스템 접근
+        - 히스토리안 레코드
+        - addCasted, ballotCast
+        - READ: student, election, votingbox
+*/
+rule Voting_identity_NetworkControlPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.*"
+    action: ALLOW
+}
+
+rule Voting_identity_HistorianrecordPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: CREATE
+    resource: "org.hyperledger.composer.system.HistorianRecord"
+    action: ALLOW
+}
+
+rule Voting_identity_AddCastedPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: UPDATE
+    resource(r): "org.elss.election.*"
+    transaction: "org.elss.election.addCasted"
+    condition: (r.status=='POLL')
+    action: ALLOW
+}
+
+rule Voting_identity_BallotCastPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: UPDATE
+    resource: "org.elss.votingbox.*"
+    transaction: "org.elss.votingbox.ballotCast"
+    action: ALLOW
+}
+
+rule Voting_identity_ElectionRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: READ
+    resource: "org.elss.election.*"
+    action: ALLOW
+}
+
+rule Votingidentity_StudentRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: READ
+    resource: "org.elss.student.*"
+    action: ALLOW
+}
+
+rule Voting_identity_VotingBoxRegistryReadPermission {
+    description: "give admin ALL access to system resources"
+    participant: "org.elss.participant.VotingIdentity"
+    operation: READ
+    resource: "org.elss.votingbox.*"
+    action: ALLOW
+}
